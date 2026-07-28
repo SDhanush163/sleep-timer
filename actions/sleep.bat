@@ -1,40 +1,46 @@
-::===============
-:: Going to sleep
-::===============
+@echo off
+
+::=============================================================
+:: Putting the computer into the sleep state
+::=============================================================
 
 cls
 mode con: cols=90 lines=10
 
+:: Displaying the current power operation to the user
 echo ------------------------
-echo %ESC%[1;93mGoing to standby%ESC%[0m
+echo %ESC%[1;93mPutting Windows to Sleep%ESC%[0m
 echo ------------------------
 
-:: Termporarily disabling hibernate
+:: Temporarily disabling hibernation to force the Sleep state
 powercfg -hibernate off
-if %errorlevel% neq 0 (
-  set errorName=Admin Privilages Error
-  set errMsg=Cannot disable Hibernate. Batch file should be run with Admin privilages
-  call "%baselocation%\functions\exception.bat"
+
+if errorlevel 1 (
+    set "errorName=Admin Privileges Error"
+    set "errMsg=Cannot disable hibernation. Run the application as Administrator."
+    call "%baselocation%\functions\exception.bat"
 )
 
-:: Replace with "shutdown /s" to Shutdown
-:: Replace with "shutdown /r" to Restart
-:: Replace with "shutdown /l" to Log off
+:: Placing the computer into Sleep mode
 rundll32.exe powrprof.dll,SetSuspendState Standby
 
-:: Enabling hibernate
+:: Re-enabling hibernation after the system resumes
 powercfg -hibernate on
-if %errorlevel% neq 0 (
-  set errorName=Admin Privilages Error
-  set errMsg=Cannot enable Hibernate. Batch file should be run with Admin privilages
-  call "%baselocation%\functions\exception.bat"
+
+if errorlevel 1 (
+    set "errorName=Admin Privileges Error"
+    set "errMsg=Cannot enable hibernation. Run the application as Administrator."
+    call "%baselocation%\functions\exception.bat"
 )
 
+:: Displaying a message after the system resumes from sleep
 echo ------------------------
-echo %ESC%[1;92mSystem is in standby%ESC%[0m
+echo %ESC%[1;92mSystem has resumed from Sleep%ESC%[0m
 echo ------------------------
 echo.
 echo.
-echo %ESC%[1;92mPress any key to exit
+echo %ESC%[1;92mPress any key to exit%ESC%[0m
 
 pause >nul
+
+exit /b
