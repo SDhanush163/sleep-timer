@@ -9,6 +9,28 @@ for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1)
 )
 cls
 
+::=============================================================
+:: Check for Administrator privileges
+::=============================================================
+net session >nul 2>&1
+
+if %errorlevel% neq 0 (
+    cls
+    echo -----------------------------------------------------------
+    echo %ESC%[1;92m                    Windows Power Timer %ESC%[0m
+    echo            An easy way to turn off the computer
+    echo -----------------------------------------------------------
+    echo.
+    echo  %ESC%[1;91mERROR:%ESC%[0m Administrator privileges are required.
+    echo.
+    echo  Please run this application as Administrator.
+    echo.
+    echo -----------------------------------------------------------
+    echo %ESC%[1;91mPress any key to exit%ESC%[0m
+    pause >nul
+    exit /b 1
+)
+
 ::==================================================================
 :: Taking user input and separating it to time and format specifiers
 ::==================================================================
