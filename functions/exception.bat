@@ -6,7 +6,7 @@ echo -----------------------------------------------------------
 echo %ESC%[1;91m%errorName% : %ESC%[0m%errMsg%
 echo -----------------------------------------------------------
 echo.
-echo %ESC%[1;91mPress any key to exit
+echo %ESC%[1;91mPress any key to exit%ESC%[0m
 
 pause >nul
-exit 0
+exit /b 0
