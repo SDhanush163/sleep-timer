@@ -1,17 +1,65 @@
+@echo off
+
+::=============================================================
+:: Displaying the countdown until the selected power action is
+:: executed
+::=============================================================
 cls
-mode con: cols=50 lines=5
+mode con: cols=70 lines=30
+call "%baselocation%\functions\formatter.bat" :formatSummary
+
+::=============================================================
+:: Displaying the static countdown screen
+::=============================================================
+echo -----------------------------------------------------------
+echo %ESC%[1;92m                    Windows Power Timer%ESC%[0m
+echo            An easy way to turn off the computer
+echo -----------------------------------------------------------
+echo.
+echo Action         : %ESC%[1;%actionColour%m%action%%ESC%[0m
+echo Duration       : %formattedDuration%
+echo Execute At     : %executeTime%
+echo.
+echo -----------------------------------------------------------
+echo.
+echo Remaining Time :
+echo Progress       :
+echo.
+echo -----------------------------------------------------------
+echo Press Ctrl+C to cancel.
+echo -----------------------------------------------------------
 
 :timeout
-cls
+::=============================================================
+:: Formatting the remaining time
+::=============================================================
+call "%baselocation%\functions\formatter.bat" :formatCountdown
+call "%baselocation%\functions\progressbar.bat"
 
-if %count% GTR 60 ( 
-    set /p =%ESC%[1mCountdown Timer : %ESC%[1;92m%count%%ESC%[0m seconds to %action% <nul 
-) else if %count% GTR 20 ( 
-    set /p =%ESC%[1mCountdown Timer : %ESC%[1;93m%count%%ESC%[0m seconds to %action% <nul 
+::=============================================================
+:: Selecting the countdown colour
+::=============================================================
+if %count% GTR 60 (
+    set "timeColor=92"
+) else if %count% GTR 20 (
+    set "timeColor=93"
 ) else (
-    set /p =%ESC%[1mCountdown Timer : %ESC%[1;91m%count%%ESC%[0m seconds to %action% <nul 
+    set "timeColor=91"
 )
 
-ping -n 2 127.0.0.1 > nul 2>&1
+::=============================================================
+:: Updating the countdown
+::=============================================================
+
+echo %ESC%[12;1H%ESC%[2KRemaining Time : %ESC%[1;%timeColor%m%formattedTime%%ESC%[0m
+echo %ESC%[13;1H%ESC%[2KProgress       : %progressBar% %percent%%%
+
+:: Put the cursor somewhere harmless
+<nul set /p "=%ESC%[15;1H"
+
+:: Wait one second
+ping 127.0.0.1 -n 2 >nul
+
 set /a count-=1
-IF %count% GTR 0 goto :timeout
+
+if %count% GTR 0 goto :timeout

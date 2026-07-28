@@ -6,7 +6,7 @@
 :menu
 
 cls
-mode con: cols=70 lines=20
+mode con: cols=70 lines=30
 
 :: Validating the system's supported power states
 call "%baselocation%\functions\validator.bat"
@@ -15,7 +15,8 @@ call "%baselocation%\functions\validator.bat"
 :: Displaying the application title and available power options
 ::=============================================================
 echo -----------------------------------------------------------
-echo %ESC%[1;92m                 Windows Power Timer%ESC%[0m
+echo %ESC%[1;92m                    Windows Power Timer %ESC%[0m
+echo            An easy way to turn off the computer
 echo -----------------------------------------------------------
 echo.
 
@@ -31,7 +32,7 @@ echo   [4] Restart
 echo   [5] Lock
 echo   [6] Log Off
 echo.
-echo   [0] Exit
+echo   %ESC%[1;91m[0] Exit%ESC%[0m
 echo.
 echo -----------------------------------------------------------
 echo.

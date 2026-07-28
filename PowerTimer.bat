@@ -20,7 +20,7 @@ if /I %action%==exit (
 )
 
 cls
-mode con: cols=70 lines=20
+mode con: cols=70 lines=30
 
 call "%baselocation%\functions\instructions.bat"
 set /p timerInput=Enter time :
@@ -39,5 +39,6 @@ if /I "%parserError%"=="true" (
 :: Starting the timeout counter
 ::=============================
 set count=%totalSeconds%
+set initialCount=%totalSeconds%
 call "%baselocation%\functions\countdown.bat"
 call "%baselocation%\actions\%action%.bat"
