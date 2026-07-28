@@ -39,23 +39,17 @@ call "%baselocation%\functions\progressbar.bat"
 ::=============================================================
 :: Selecting the countdown colour
 ::=============================================================
-if %count% GTR 60 (
-    set "timeColor=92"
-) else if %count% GTR 20 (
-    set "timeColor=93"
-) else (
-    set "timeColor=91"
-)
+set "timeColor=91"
+if %count% GTR 20 set "timeColor=93"
+if %count% GTR 60 set "timeColor=92"
 
 ::=============================================================
 :: Updating the countdown
 ::=============================================================
 
-echo %ESC%[12;1H%ESC%[2KRemaining Time : %ESC%[1;%timeColor%m%formattedTime%%ESC%[0m
-echo %ESC%[13;1H%ESC%[2KProgress       : %progressBar% %percent%%%
-
-:: Put the cursor somewhere harmless
-<nul set /p "=%ESC%[15;1H"
+<nul set /p "=%ESC%[13;1H%ESC%[2KRemaining Time : %ESC%[1;%timeColor%m%formattedTime%%ESC%[0m" 
+<nul set /p "=%ESC%[14;1H%ESC%[2KProgress       : %progressBar% %percent%%%"
+<nul set /p "=%ESC%[20;1H"
 
 :: Wait one second
 ping 127.0.0.1 -n 2 >nul

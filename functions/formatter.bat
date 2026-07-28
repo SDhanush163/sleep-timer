@@ -14,7 +14,7 @@ exit /b
 call :calculateTime
 for /f %%A in (
     'powershell -NoProfile -Command "(Get-Date).AddSeconds(%count%).ToString(\"HH:mm:ss\")"'
-) do set "=%%A"
+) do set "executeTime=%%A"
 
 setlocal EnableDelayedExpansion
 
