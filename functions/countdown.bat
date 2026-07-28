@@ -5,11 +5,11 @@ mode con: cols=50 lines=5
 cls
 
 if %count% GTR 60 ( 
-    set /p =%ESC%[1mCountdown Timer : %ESC%[1;92m%count%%ESC%[0m seconds to sleep <nul 
+    set /p =%ESC%[1mCountdown Timer : %ESC%[1;92m%count%%ESC%[0m seconds to %action% <nul 
 ) else if %count% GTR 20 ( 
-    set /p =%ESC%[1mCountdown Timer : %ESC%[1;93m%count%%ESC%[0m seconds to sleep <nul 
+    set /p =%ESC%[1mCountdown Timer : %ESC%[1;93m%count%%ESC%[0m seconds to %action% <nul 
 ) else (
-    set /p =%ESC%[1mCountdown Timer : %ESC%[1;91m%count%%ESC%[0m seconds to sleep <nul 
+    set /p =%ESC%[1mCountdown Timer : %ESC%[1;91m%count%%ESC%[0m seconds to %action% <nul 
 )
 
 ping -n 2 127.0.0.1 > nul 2>&1
