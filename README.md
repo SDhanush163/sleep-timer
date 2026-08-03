@@ -186,6 +186,16 @@ Built using:
 
 ---
 
+# Documentation
+
+For more information about the project, see:
+
+- [Architecture](docs/ARCHITECTURE.md) – Project structure and execution flow.
+- [ANSI Styling & Terminal Control](docs/ANSI.md) – ANSI escape sequences used by the application.
+- [Troubleshooting](docs/TROUBLESHOOTING.md) – Common issues and their solutions.
+
+---
+
 # Contributing
 
 Suggestions, bug reports and pull requests are always welcome.
